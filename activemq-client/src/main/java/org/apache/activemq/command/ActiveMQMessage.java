@@ -674,7 +674,7 @@ public class ActiveMQMessage extends Message implements org.apache.activemq.Mess
     @Override
     public String getStringProperty(String name) throws JMSException {
         Object value = null;
-        if (name.equals("JMSXUserID")) {
+        if ("JMSXUserID".equals(name)) {
             value = getUserID();
             if (value == null) {
                 value = getObjectProperty(name);
@@ -723,12 +723,12 @@ public class ActiveMQMessage extends Message implements org.apache.activemq.Mess
 
     @Override
     public void setFloatProperty(String name, float value) throws JMSException {
-        setObjectProperty(name, new Float(value));
+        setObjectProperty(name, Float.valueOf(value));
     }
 
     @Override
     public void setDoubleProperty(String name, double value) throws JMSException {
-        setObjectProperty(name, new Double(value));
+        setObjectProperty(name, Double.valueOf(value));
     }
 
     @Override
@@ -784,4 +784,25 @@ public class ActiveMQMessage extends Message implements org.apache.activemq.Mess
         //which is already marshalled
         return true;
     }
+
+	@Override
+	public long getJMSDeliveryTime() throws JMSException {
+        return deliveryTime;
+	}
+
+	@Override
+	public void setJMSDeliveryTime(long deliveryTime) throws JMSException {
+        this.deliveryTime = deliveryTime;
+	}
+
+	@Override
+	public <T> T getBody(Class<T> c) throws JMSException {
+        throw new UnsupportedOperationException("getBody(Class<T>) is not supported");
+	}
+
+	@Override
+	public boolean isBodyAssignableTo(Class c) throws JMSException {
+        throw new UnsupportedOperationException("isBodyAssignableTo(Class) is not supported");
+	}
+
 }

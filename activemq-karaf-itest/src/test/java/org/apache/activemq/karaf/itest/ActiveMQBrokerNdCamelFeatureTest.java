@@ -37,7 +37,7 @@ public class ActiveMQBrokerNdCamelFeatureTest extends AbstractFeatureTest {
     public static Option[] configure() {
         return new Option[] //
         {
-         composite(configure("activemq", "activemq-camel")),
+         composite(configure("activemq", "camel-jms")),
          editConfigurationFilePut("etc/system.properties", "camel.version", camelVersion()),
          replaceConfigurationFile("etc/activemq.xml", new File(RESOURCE_BASE + "activemq-nd-camel.xml")),
          replaceConfigurationFile("etc/org.apache.activemq.server-default.cfg", new File(RESOURCE_BASE + "org.apache.activemq.server-default.cfg"))
@@ -51,7 +51,7 @@ public class ActiveMQBrokerNdCamelFeatureTest extends AbstractFeatureTest {
         assertBrokerStarted();
         withinReason(new Runnable() {
             public void run() {
-                getBundle("org.apache.activemq.activemq-camel");
+                getBundle("org.apache.camel.camel-jms");
                 assertTrue("we have camel consumers", executeCommand("activemq:dstat").trim().contains("camel_in"));
             }
         });

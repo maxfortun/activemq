@@ -18,16 +18,15 @@ package org.apache.activemq.broker.jmx;
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.rmi.AccessException;
-import java.rmi.AlreadyBoundException;
+import java.lang.reflect.Proxy;
 import java.rmi.NoSuchObjectException;
-import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +56,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
+import static java.lang.ClassLoader.getSystemClassLoader;
+
 /**
- * An abstraction over JMX mbean registration
+ * An abstraction over JMX MBean registration
  *
  * @org.apache.xbean.XBean
  *
@@ -80,9 +81,10 @@ public class ManagementContext implements Service {
         try {
             option = System.getProperty("org.apache.activemq.broker.jmx.createConnector", "false");
         } catch (Exception ex) {
+            // no-op
         }
 
-        DEFAULT_CREATE_CONNECTOR = Boolean.valueOf(option);
+        DEFAULT_CREATE_CONNECTOR = Boolean.parseBoolean(option);
     }
 
     public static final boolean DEFAULT_CREATE_CONNECTOR;
@@ -106,7 +108,7 @@ public class ManagementContext implements Service {
     private JMXConnectorServer connectorServer;
     private ObjectName namingServiceObjectName;
     private Registry registry;
-    private final Map<ObjectName, ObjectName> registeredMBeanNames = new ConcurrentHashMap<ObjectName, ObjectName>();
+    private final Map<ObjectName, ObjectName> registeredMBeanNames = new ConcurrentHashMap<>();
     private boolean allowRemoteAddressInMBeanNames = true;
     private String brokerName;
     private String suppressMBean;
@@ -134,17 +136,17 @@ public class ManagementContext implements Service {
                 connectorHost = "localhost";
             }
 
-            // force mbean server to be looked up, so we have it
+            // force MBean server to be looked up, so we have it
             getMBeanServer();
 
             if (connectorServer != null) {
                 try {
                     if (getMBeanServer().isRegistered(namingServiceObjectName)) {
-                        LOG.debug("Invoking start on mbean: {}", namingServiceObjectName);
+                        LOG.debug("Invoking start on MBean: {}", namingServiceObjectName);
                         getMBeanServer().invoke(namingServiceObjectName, "start", null, null);
                     }
-                } catch (Throwable ignore) {
-                    LOG.debug("Error invoking start on MBean {}. This exception is ignored.", namingServiceObjectName, ignore);
+                } catch (Throwable t) {
+                    LOG.debug("Error invoking start on MBean {}. This exception is ignored.", namingServiceObjectName, t);
                 }
 
                 Thread t = new Thread("JMX connector") {
@@ -221,7 +223,7 @@ public class ManagementContext implements Service {
                 } catch (IOException e) {
                     LOG.warn("Failed to stop jmx connector: {}", e.getMessage());
                 }
-                // stop naming service mbean
+                // stop naming service MBean
                 try {
                     if (namingServiceObjectName != null && getMBeanServer().isRegistered(namingServiceObjectName)) {
                         LOG.debug("Stopping MBean {}", namingServiceObjectName);
@@ -229,8 +231,8 @@ public class ManagementContext implements Service {
                         LOG.debug("Unregistering MBean {}", namingServiceObjectName);
                         getMBeanServer().unregisterMBean(namingServiceObjectName);
                     }
-                } catch (Throwable ignore) {
-                    LOG.warn("Error stopping and unregsitering MBean {} due to {}", namingServiceObjectName, ignore.getMessage());
+                } catch (Throwable t) {
+                    LOG.warn("Error stopping and unregistering MBean {} due to {}", namingServiceObjectName, t.getMessage());
                 }
                 namingServiceObjectName = null;
             }
@@ -302,8 +304,6 @@ public class ManagementContext implements Service {
 
     /**
      * Set the MBeanServer
-     *
-     * @param beanServer
      */
     public void setMBeanServer(MBeanServer beanServer) {
         this.beanServer = beanServer;
@@ -355,8 +355,6 @@ public class ManagementContext implements Service {
     /**
      * Formulate and return the MBean ObjectName of a custom control MBean
      *
-     * @param type
-     * @param name
      * @return the JMX ObjectName of the MBean, or <code>null</code> if
      *         <code>customName</code> is invalid.
      */
@@ -374,7 +372,6 @@ public class ManagementContext implements Service {
     /**
      * The ':' and '/' characters are reserved in ObjectNames
      *
-     * @param in
      * @return sanitized String
      */
     private static String sanitizeString(String in) {
@@ -389,12 +386,6 @@ public class ManagementContext implements Service {
 
     /**
      * Retrieve an System ObjectName
-     *
-     * @param domainName
-     * @param containerName
-     * @param theClass
-     * @return the ObjectName
-     * @throws MalformedObjectNameException
      */
     public static ObjectName getSystemObjectName(String domainName, String containerName, Class<?> theClass) throws MalformedObjectNameException, NullPointerException {
         String tmp = domainName + ":" + "type=" + theClass.getName() + ",name=" + getRelativeName(containerName, theClass);
@@ -456,9 +447,6 @@ public class ManagementContext implements Service {
 
     /**
      * Unregister an MBean
-     *
-     * @param name
-     * @throws JMException
      */
     public void unregisterMBean(ObjectName name) throws JMException {
         ObjectName actualName = this.registeredMBeanNames.get(name);
@@ -538,9 +526,6 @@ public class ManagementContext implements Service {
 
     /**
      * @return an MBeanServer instance
-     * @throws NullPointerException
-     * @throws MalformedObjectNameException
-     * @throws IOException
      */
     protected MBeanServer createMBeanServer() throws MalformedObjectNameException, IOException {
         MBeanServer mbeanServer = MBeanServerFactory.createMBeanServer(jmxDomainName);
@@ -551,17 +536,12 @@ public class ManagementContext implements Service {
         return mbeanServer;
     }
 
-    /**
-     * @param mbeanServer
-     * @throws MalformedObjectNameException
-     * @throws IOException
-     */
-    private void createConnector(MBeanServer mbeanServer) throws MalformedObjectNameException, IOException {
+    private void createConnector(MBeanServer mbeanServer) throws IOException {
         // Create the NamingService, needed by JSR 160
         try {
             if (registry == null) {
                 LOG.debug("Creating RMIRegistry on port {}", connectorPort);
-                registry = new JmxRegistry(connectorPort);
+                registry = jmxRegistry(connectorPort);
             }
 
             namingServiceObjectName = ObjectName.getInstance("naming:type=rmiregistry");
@@ -569,10 +549,10 @@ public class ManagementContext implements Service {
             // Do not use the createMBean as the mx4j jar may not be in the
             // same class loader than the server
             Class<?> cl = Class.forName("mx4j.tools.naming.NamingService");
-            mbeanServer.registerMBean(cl.newInstance(), namingServiceObjectName);
+            mbeanServer.registerMBean(cl.getDeclaredConstructor().newInstance(), namingServiceObjectName);
 
             // set the naming port
-            Attribute attr = new Attribute("Port", Integer.valueOf(connectorPort));
+            Attribute attr = new Attribute("Port", connectorPort);
             mbeanServer.setAttribute(namingServiceObjectName, attr);
         } catch(ClassNotFoundException e) {
             LOG.debug("Probably not using JRE 1.4: {}", e.getLocalizedMessage());
@@ -690,37 +670,32 @@ public class ManagementContext implements Service {
         return suppressMBean;
     }
 
-    /*
-     * Better to use the internal API than re-invent the wheel.
-     */
-    @SuppressWarnings("restriction")
-    private class JmxRegistry extends sun.rmi.registry.RegistryImpl {
-
-
-        public JmxRegistry(int port) throws RemoteException {
-            super(port);
-        }
-
-        @Override
-        public Remote lookup(String s) throws RemoteException, NotBoundException {
-            return lookupName.equals(s) ? serverStub : null;
-        }
-
-        @Override
-        public void bind(String s, Remote remote) throws RemoteException, AlreadyBoundException, AccessException {
-        }
-
-        @Override
-        public void unbind(String s) throws RemoteException, NotBoundException, AccessException {
-        }
-
-        @Override
-        public void rebind(String s, Remote remote) throws RemoteException, AccessException {
-        }
-
-        @Override
-        public String[] list() throws RemoteException {
-            return new String[] {lookupName};
-        }
+    // do not use sun.rmi.registry.RegistryImpl! it is not always easily available
+    private Registry jmxRegistry(final int port) throws RemoteException {
+        final var loader = Thread.currentThread().getContextClassLoader();
+        final var delegate = LocateRegistry.createRegistry(port);
+        return Registry.class.cast(Proxy.newProxyInstance(
+                loader == null ? getSystemClassLoader() : loader,
+                new Class<?>[]{Registry.class}, (proxy, method, args) -> {
+                    final var name = method.getName();
+                    if ("lookup".equals(name) &&
+                            method.getParameterCount() == 1 &&
+                            method.getParameterTypes()[0] == String.class) {
+                        return lookupName.equals(args[0]) ? serverStub : null;
+                    }
+                    switch (name) {
+                        case "bind":
+                        case "unbind":
+                        case "rebind":
+                            return null;
+                        case "list":
+                            return new String[] {lookupName};
+                    }
+                    try {
+                        return method.invoke(delegate, args);
+                    } catch (final InvocationTargetException ite) {
+                        throw ite.getTargetException();
+                    }
+                }));
     }
 }

@@ -43,36 +43,35 @@
     <annogen-version>0.1.0</annogen-version>
     <aries-version>1.1.0</aries-version>
     <axion-version>1.0-M3-dev</axion-version>
-    <camel-version>2.25.2</camel-version>
-    <camel-version-range>[2.20,3)</camel-version-range>
+    <camel-version>2.25.4</camel-version>
+    <camel-version-range>[2.20,4)</camel-version-range>
     <commons-beanutils-version>1.9.4</commons-beanutils-version>
     <commons-collections-version>3.2.2</commons-collections-version>
     <commons-daemon-version>1.2.4</commons-daemon-version>
-    <commons-dbcp2-version>2.8.0</commons-dbcp2-version>
-    <commons-io-version>2.8.0</commons-io-version>
+    <commons-dbcp2-version>2.9.0</commons-dbcp2-version>
+    <commons-io-version>2.11.0</commons-io-version>
     <commons-lang-version>3.12.0</commons-lang-version>
     <commons-logging-version>1.2</commons-logging-version>
-    <commons-pool2-version>2.9.0</commons-pool2-version>
+    <commons-pool2-version>2.11.1</commons-pool2-version>
     <commons-primitives-version>1.0</commons-primitives-version>
     <commons-net-version>3.8.0</commons-net-version>
     <directory-version>2.0.0.AM25</directory-version>
     <ecj.version>3.17.0</ecj.version>
     <ftpserver-version>1.1.1</ftpserver-version>
-    <guava-version>28.2-jre</guava-version>
+    <guava-version>31.0.1-jre</guava-version>
     <hadoop-version>1.2.1</hadoop-version>
     <hawtbuf-version>1.11</hawtbuf-version>
     <hawtdispatch-version>1.22</hawtdispatch-version>
     <httpclient-version>4.5.13</httpclient-version>
     <httpcore-version>4.4.14</httpcore-version>
     <insight-version>1.2.0.Beta4</insight-version>
-    <jackson-version>2.9.10</jackson-version>
-    <jackson-databind-version>2.9.10.8</jackson-databind-version>
+    <jackson-version>2.12.5</jackson-version>
     <jasypt-version>1.9.3</jasypt-version>
     <jaxb-bundle-version>2.2.11_1</jaxb-bundle-version>
-    <jetty9-version>9.4.40.v20210413</jetty9-version>
+    <jetty9-version>9.4.43.v20210629</jetty9-version>
     <jetty-version>${jetty9-version}</jetty-version>
     <jmdns-version>3.4.1</jmdns-version>
-    <tomcat-api-version>9.0.41</tomcat-api-version>
+    <tomcat-api-version>9.0.48</tomcat-api-version>
     <jettison-version>1.4.1</jettison-version>
     <jmock-version>2.5.1</jmock-version>
     <jolokia-version>1.6.2</jolokia-version>
@@ -81,7 +80,7 @@
     <json-simple-version>1.1.1</json-simple-version>
     <junit-version>4.13.2</junit-version>
     <hamcrest-version>1.3</hamcrest-version>
-    <karaf-version>4.2.10</karaf-version>
+    <karaf-version>4.2.11</karaf-version>
     <log4j-version>1.2.17</log4j-version>
     <mockito-version>3.8.0</mockito-version>
     <owasp-dependency-check-version>5.2.4</owasp-dependency-check-version>
@@ -96,19 +95,19 @@
     <qpid-jms-proton-version>0.33.8</qpid-jms-proton-version>
     <netty-all-version>4.1.63.Final</netty-all-version>
     <regexp-version>1.3</regexp-version>
-    <rome-version>1.15.0</rome-version>
-    <shiro-version>1.7.1</shiro-version>
-    <slf4j-version>1.7.30</slf4j-version>
+    <rome-version>1.16.0</rome-version>
+    <shiro-version>1.8.0</shiro-version>
+    <slf4j-version>1.7.32</slf4j-version>
     <snappy-version>1.1.2</snappy-version>
-    <spring-version>4.3.30.RELEASE</spring-version>
+    <spring-version>5.3.12</spring-version>
     <taglibs-version>1.2.5</taglibs-version>
     <velocity-version>2.3</velocity-version>
     <xalan-version>2.7.2</xalan-version>
     <xpp3-version>1.1.4c</xpp3-version>
-    <xstream-version>1.4.16</xstream-version>
-    <xbean-version>4.18</xbean-version>
+    <xstream-version>1.4.18</xstream-version>
+    <xbean-version>4.20</xbean-version>
     <xerces-version>2.12.0</xerces-version>
-    <jaxb-basics-version>0.6.4</jaxb-basics-version>
+    <jaxb-basics-version>0.12.0</jaxb-basics-version>
     <stompjms-version>1.19</stompjms-version>
 
     <pax-exam-version>4.13.1</pax-exam-version>
@@ -116,25 +115,26 @@
     <felix-framework-version>5.6.12</felix-framework-version>
 
     <site-repo-url>scpexe://people.apache.org/www/activemq.apache.org/maven/</site-repo-url>
-    <source-version>1.8</source-version>
-    <target-version>1.8</target-version>
+    <source-version>11</source-version>
+    <target-version>11</target-version>
     <javase-javadoc-url>http://docs.oracle.com/javase/8/docs/api/</javase-javadoc-url>
     <javaee-javadoc-url>http://download.oracle.com/javaee/6/api/</javaee-javadoc-url>
     <slf4j-javadoc-url>http://www.slf4j.org/apidocs/</slf4j-javadoc-url>
 
     <!-- Maven Plugin Version for this Project -->
-    <maven-bundle-plugin-version>2.3.7</maven-bundle-plugin-version>
-    <maven-surefire-plugin-version>2.22.1</maven-surefire-plugin-version>
-    <maven-antrun-plugin-version>1.3</maven-antrun-plugin-version>
-    <maven-assembly-plugin-version>2.4</maven-assembly-plugin-version>
+    <maven-bundle-plugin-version>5.1.2</maven-bundle-plugin-version>
+    <maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
+    <maven-antrun-plugin-version>1.8</maven-antrun-plugin-version>
+    <maven-assembly-plugin-version>3.3.0</maven-assembly-plugin-version>
     <maven-release-plugin-version>2.4.1</maven-release-plugin-version>
     <maven-eclipse-plugin-version>2.10</maven-eclipse-plugin-version>
-    <maven-war-plugin-version>2.4</maven-war-plugin-version>
+    <maven-enforcer-plugin-version>3.0.0-M3</maven-enforcer-plugin-version>
+    <maven-war-plugin-version>3.2.2</maven-war-plugin-version>
     <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
-    <maven-jar-plugin-version>2.4</maven-jar-plugin-version>
+    <maven-jar-plugin-version>3.1.0</maven-jar-plugin-version>
     <maven-archiver-version>2.5</maven-archiver-version>
-    <maven-source-plugin-version>2.2.1</maven-source-plugin-version>
-    <maven-javadoc-plugin-version>2.9.1</maven-javadoc-plugin-version>
+    <maven-source-plugin-version>2.4</maven-source-plugin-version>
+    <maven-javadoc-plugin-version>3.0.1</maven-javadoc-plugin-version>
     <maven-install-plugin-version>2.4</maven-install-plugin-version>
     <maven-shade-plugin-version>2.1</maven-shade-plugin-version>
     <findbugs-maven-plugin-version>3.0.1</findbugs-maven-plugin-version>
@@ -211,7 +211,6 @@
     <module>activemq-kahadb-store</module>
     <module>activemq-jdbc-store</module>
     <module>activemq-all</module>
-    <module>activemq-camel</module>
     <module>activemq-console</module>
     <module>activemq-jaas</module>
     <module>activemq-karaf</module>
@@ -309,11 +308,6 @@
       <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-all</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.activemq</groupId>
-        <artifactId>activemq-camel</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -471,9 +465,9 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>geronimo-jms_1.1_spec</artifactId>
-        <version>1.1.1</version>
+        <groupId>jakarta.jms</groupId>
+        <artifactId>jakarta.jms-api</artifactId>
+        <version>2.0.3</version>
       </dependency>
 
       <dependency>
@@ -502,7 +496,7 @@
      <dependency>
        <groupId>org.ow2.asm</groupId>
        <artifactId>asm</artifactId>
-       <version>7.3.1</version>
+       <version>9.1</version>
      </dependency>
 
       <!-- Servlet 3.1 and JSP -->
@@ -622,9 +616,9 @@
             <artifactId>qdox</artifactId>
           </exclusion>
         </exclusions>
-
       </dependency>
 
+      <!-- Jackson -->
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
@@ -638,7 +632,7 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>${jackson-databind-version}</version>
+        <version>${jackson-version}</version>
       </dependency>
 
       <!-- Used to configure the activemq logs -->
@@ -816,19 +810,6 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-pool2</artifactId>
         <version>${commons-pool2-version}</version>
-      </dependency>
-
-      <!-- Optional Jabber support -->
-      <dependency>
-        <groupId>activemq</groupId>
-        <artifactId>smack</artifactId>
-        <version>1.5.0</version>
-      </dependency>
-
-      <dependency>
-        <groupId>activemq</groupId>
-        <artifactId>smackx</artifactId>
-        <version>1.5.0</version>
       </dependency>
 
       <!-- To use XPath using JAXP 1.3 (std in Java 5) -->
@@ -1034,6 +1015,16 @@
         <artifactId>org.apache.servicemix.bundles.josql</artifactId>
         <version>${josql-version}</version>
       </dependency>
+      <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>2.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>1.3.2</version>
+      </dependency>
 
     </dependencies>
   </dependencyManagement>
@@ -1057,8 +1048,13 @@
           <artifactId>maven-assembly-plugin</artifactId>
           <version>${maven-assembly-plugin-version}</version>
           <configuration>
-            <tarLongFileMode>gnu</tarLongFileMode>
+            <tarLongFileMode>posix</tarLongFileMode>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin-version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -1276,7 +1272,36 @@
           <showWarnings>true</showWarnings>
         </configuration>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.0.5</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>ianal-maven-plugin</artifactId>
@@ -1291,43 +1316,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <inherited>true</inherited>
-        <configuration>
-          <instructions>
-            <Bundle-Name>${project.artifactId}</Bundle-Name>
-            <Bundle-SymbolicName>${activemq.osgi.symbolic.name}</Bundle-SymbolicName>
-            <Export-Package>${activemq.osgi.export}</Export-Package>
-            <Import-Package>${activemq.osgi.import}</Import-Package>
-            <DynamicImport-Package>${activemq.osgi.dynamic.import}</DynamicImport-Package>
-            <Private-Package>${activemq.osgi.private.pkg}</Private-Package>
-            <Implementation-Title>Apache ActiveMQ</Implementation-Title>
-            <Implementation-Version>${project.version}</Implementation-Version>
-            <_versionpolicy-impl>[$(version;==;$(@)),$(version;=+;$(@)))</_versionpolicy-impl>
-            <_versionpolicy-uses>[$(version;==;$(@)),$(version;+;$(@)))</_versionpolicy-uses>
-            <_versionpolicy>[$(version;==;$(@)),$(version;+;$(@)))</_versionpolicy>
-            <_failok>${servicemix.osgi.failok}</_failok>
-          </instructions>
-        </configuration>
-        <executions>
-          <execution>
-            <id>cleanVersions</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>cleanVersions</goal>
-            </goals>
-            <configuration>
-              <versions>
-                <activemq.osgi.version>${project.version}</activemq.osgi.version>
-              </versions>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
@@ -1386,6 +1374,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc-plugin-version}</version>
         <configuration>
           <links>
             <link>${javase-javadoc-url}</link>
@@ -1405,7 +1394,7 @@
           <source>${source-version}</source>
           <additionalJOption>-J-Xmx2048m</additionalJOption>
           <!-- necessary for now under the javadocs can be fixed because jdk8 is much stricter -->
-          <additionalparam>${javadoc.options}</additionalparam>
+          <additionalJOption>${javadoc.options}</additionalJOption>
         </configuration>
         <executions>
             <execution>
@@ -1540,7 +1529,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${maven-javadoc-plugin-version}</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>

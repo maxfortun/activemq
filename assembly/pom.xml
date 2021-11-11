@@ -39,10 +39,6 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>activemq-camel</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
       <artifactId>activeio-core</artifactId>
     </dependency>
     <dependency>
@@ -258,8 +254,8 @@
       <artifactId>log4j</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-jms_1.1_spec</artifactId>
+      <groupId>jakarta.jms</groupId>
+      <artifactId>jakarta.jms-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
@@ -553,19 +549,20 @@
             <id>unix-bin</id>
             <phase>package</phase>
             <goals>
-              <goal>attached</goal>
+              <goal>single</goal>
             </goals>
             <configuration>
               <descriptors>
                  <descriptor>src/main/descriptors/unix-bin.xml</descriptor>
               </descriptors>
+              <tarLongFileMode>posix</tarLongFileMode>
             </configuration>
           </execution>
           <execution>
             <id>windows-bin</id>
             <phase>package</phase>
             <goals>
-              <goal>attached</goal>
+              <goal>single</goal>
             </goals>
             <configuration>
               <descriptors>
